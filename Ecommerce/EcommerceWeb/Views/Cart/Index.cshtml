@@ -1,0 +1,90 @@
+﻿@model EcommerceWeb.Models.Cart
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    string isConnected = @HttpContextAccessor.HttpContext.Session.GetString("connectedUser");
+    var connectedUserId = @HttpContextAccessor.HttpContext.Session.GetInt32("connectedUserId");
+    var isAdmin = @HttpContextAccessor.HttpContext.Session.GetInt32("isAdmin");
+    double total = 0;
+}
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>My Cart</h2>
+@{
+    if (Model == null || Model.ListCartProducts.Count() == 0)
+    {
+        <h2>No products in cart</h2>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListCartProducts)
+                {
+                    total += (double)item.product.Price * item.Quantity;
+
+                    <tr>
+                        <td>
+                            @{var img = item.product.Image == null ? "noimg.png" : item.product.Image;}
+                            <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@item.product.ProductId"><img src="~/images/@img" width="250" height="250" class="img-responsive" /></a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Name)
+                        </td>
+                        <td>
+                            @{var p = item.product.Price * item.Quantity;}
+                            @p €
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                            <a asp-controller="Cart" asp-action="AddProduct" asp-route-id="@item.product.ProductId">+</a>
+                            /
+                            <a asp-controller="Cart" asp-action="RemoveProduct" asp-route-id="@item.product.ProductId">-</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-lg-2 col-lg-offset-10">
+                <b>TOTAL : </b> @total €
+            </div>
+            <div class="col-lg-2 col-lg-offset-10">
+                <a asp-action="Order" asp-controller="Cart" asp-route-id="@connectedUserId" class="btn btn-success btn-block">Order</a>
+            </div>
+        </div>
+    }
+}
+

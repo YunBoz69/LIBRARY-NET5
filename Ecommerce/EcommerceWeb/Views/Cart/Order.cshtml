@@ -1,0 +1,248 @@
+﻿@model EcommerceWeb.Models.Cart
+
+@{
+    ViewData["Title"] = "Order";
+}
+
+<h2>Order</h2>
+
+@{
+    if (Model.ListCartProducts.Count() == 0)
+    {
+        <h2>You can't order, you cart is empty</h2>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Choose addresses</h2>
+                <hr />
+                <h3>Your billing address</h3>
+                <hr />
+                @{
+                    int i = 0;
+                    User user = (User)ViewData["user"];
+                }
+                @foreach (Address addr in user.ListAddresses as IList<Address>)
+                {
+                    @if (addr.IsBill)
+                    {
+                        <dl class="dl-horizontal" style="border-left : solid lightgrey 1px;">
+                            <dt>
+                                First name
+                            </dt>
+                            <dd>
+                                @addr.FirstName
+                            </dd>
+                            <dt>
+                                Last name
+                            </dt>
+                            <dd>
+                                @addr.LastName
+                            </dd>
+                            <dt>
+                                Address
+                            </dt>
+                            <dd>
+                                @addr.FirstAddress
+                            </dd>
+                            <dt>
+                                City
+                            </dt>
+                            <dd>
+                                @addr.City
+                            </dd>
+                            <dt>
+                                Postal Code
+                            </dt>
+                            <dd>
+                                @addr.PostalCode
+
+                            </dd>
+                            <dd>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="radio" name="bill" value="@addr.AddressId" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </dd>
+
+                        </dl>
+                        i++;
+                        if (i == 0)
+                        {
+                            <h4>No billing address</h4>
+                        }
+                    }
+                }
+            </div>
+
+            @{
+                i = 0;
+            }
+            <div class="col-lg-12 col-sm-12" col-xs-12"">
+                <h3>Your delivery addresses</h3>
+                <hr />
+
+                @foreach (Address addr in user.ListAddresses as IList<Address>)
+                {
+                    @if (addr.IsDelivery)
+                    {
+                        <div class="col-lg-6" style="border-left : solid lightgrey 1px;">
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    First name
+                                </dt>
+                                <dd>
+                                    @addr.FirstName
+                                </dd>
+                                <dt>
+                                    Last name
+                                </dt>
+                                <dd>
+                                    @addr.LastName
+                                </dd>
+                                <dt>
+                                    Address
+                                </dt>
+                                <dd>
+                                    @addr.FirstAddress
+                                </dd>
+                                <dt>
+                                    City
+                                </dt>
+                                <dd>
+                                    @addr.City
+                                </dd>
+                                <dt>
+                                    Postal Code
+                                </dt>
+                                <dd>
+                                    @addr.PostalCode
+
+                                </dd>
+                                <dd>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="radio" name="delivery" value="@addr.AddressId" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </dd>
+
+                            </dl>
+                        </div>
+                        i++;
+                        if (i == 0)
+                        {
+                            <h4>No delivery addresses</h4>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <div class="row">
+            <h2>Payment informations</h2>
+            <hr />
+
+            <div class='col-lg-5'>
+                <form>
+                    <div class='form-row'>
+                        <div class='col-xs-12 form-group required'>
+                            <label class='control-label'>Name on Card</label>
+                            <input class='form-control' name="card_name" size='4' type='text'>
+                        </div>
+                    </div>
+                    <div class='form-row'>
+                        <div class='col-xs-12 form-group card required'>
+                            <label class='control-label'>Card Number</label>
+                            <input autocomplete='off' name="card_number" class='form-control card-number' maxlength='20' type='text'>
+                        </div>
+                    </div>
+                    <div class='form-row'>
+                        <div class='col-xs-4 form-group cvc required'>
+                            <label class='control-label'>CVC</label>
+                            <input autocomplete='off' name="cvc" class='form-control card-cvc' placeholder='ex. 311' maxlength='3' type='text'>
+                        </div>
+                        <div class='col-xs-4 form-group expiration required'>
+                            <label class='control-label'>Expiration</label>
+                            <input class='form-control card-expiry-month' name="expiration_month" placeholder='MM' maxlength='2' type='text'>
+                        </div>
+                        <div class='col-xs-4 form-group expiration required'>
+                            <label class='control-label'> </label>
+                            <input class='form-control card-expiry-year' name="expiration_year" name="cvc" placeholder='YY' maxlength='2' type='text'>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-7"></div>
+        </div>
+        <hr />
+        <h2>Summary</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListCartProducts)
+                {
+                    <tr>
+                        <td>
+                            @{var img = item.product.Image == null ? "noimg.png" : item.product.Image;}
+                            <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@item.product.ProductId"><img src="~/images/@img" width="200" height="200" class="img-responsive" /></a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Name)
+                        </td>
+                        <td>
+                            @{var p = item.product.Price * item.Quantity;}
+                            @p €
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-lg-2 col-lg-offset-10">
+                <form asp-action="Order">
+                    <button type="submit" id="create_form" asp-action="Order" asp-controller="Cart" class="btn btn-success btn-block">Confirm my Order</button>
+                </form>
+            </div>
+        </div>
+    }
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ScriptOrder");}
+}

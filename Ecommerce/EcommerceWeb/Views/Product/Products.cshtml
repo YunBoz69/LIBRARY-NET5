@@ -1,0 +1,116 @@
+﻿@model IEnumerable<EcommerceWeb.Models.Product>
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    string isConnected = @HttpContextAccessor.HttpContext.Session.GetString("connectedUser");
+    var connectedUserId = @HttpContextAccessor.HttpContext.Session.GetInt32("connectedUserId");
+    var isAdmin = @HttpContextAccessor.HttpContext.Session.GetInt32("isAdmin");
+}
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+
+<h2>Products</h2>
+
+<p>
+    @{
+        if (isAdmin == 1)
+        {
+            <a asp-action="Create">Create New</a>
+        }
+    }
+</p>
+<div class="row">
+    <div class="col-lg-5 col-sm-5 col-xs-12">
+        <select class="form-control">
+            <option value="null">---------- Categories ----------</option>
+            @foreach (Product cat in ViewData["categories"] as IList<Product>)
+            {
+                <option value="@cat.Category">@cat.Category</option>
+            }
+        </select>
+    </div>
+    <div class="col-lg-5 col-sm-5 col-xs-12">
+        <input type="number" class="form-control" placeholder="Price ..." />
+    </div>
+    <div class="col-lg-2 col-sm-2 col-xs-12">
+        <a href="" class="btn btn-block btn-default">Search</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{var img = item.Image == null ? "noimg.png" : item.Image;}
+                    <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId"><img src="~/images/@img" width="250" height="250" class="img-responsive" /></a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price) €
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                @{
+                    if (isAdmin == 1)
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var skip_next = Convert.ToInt32(ViewData["skip"]) + 5;
+    var skip_prev = Convert.ToInt32(ViewData["skip"]) - 5;
+}
+@if (skip_prev >= 0)
+{
+    <a asp-action="Products" asp-controller="Product" asp-route-skip="@skip_prev" asp-route-nb="5">&lt; Prev</a>
+}
+ |
+@if (Model.Count() >= 5)
+{
+    <a asp-action="Products" asp-controller="Product" asp-route-skip="@skip_next" asp-route-nb="5">Next &gt;</a>
+}

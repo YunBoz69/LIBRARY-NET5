@@ -1,0 +1,31 @@
+<script>
+    // Envoi de la commande, creation de json
+    $(function () {
+        $('#create_form').on('click', function (e) {
+            e.preventDefault();
+            var inputs = $('input');
+            var json = {};
+            for (var i = 0; inputs.length > i; i++) {
+                console.log(inputs[i].type === "radio" && inputs[i].name === "bill" && inputs[i].checked === true);
+                if (inputs[i].type === "radio" && inputs[i].name === "bill" && inputs[i].checked === true)
+                    json["bill"] = inputs[i].value;
+                else if (inputs[i].type === "radio" && inputs[i].name === "delivery" && inputs[i].checked === true)
+                    json["delivery"] = inputs[i].value;
+                else if (inputs[i].type === "text")
+                    json[inputs[i].name] = inputs[i].value;
+                if (inputs[i].value == "" && inputs[i].type == "text")
+                    return alert("Fill all fields")
+            }
+            if (!json.hasOwnProperty('bill') || !json.hasOwnProperty('delivery'))
+                return alert("Choose addresses");
+            console.log(json);
+            console.log(JSON.stringify(json));
+            var el = document.createElement("input");
+            el.name = "json";
+            el.type = "hidden";
+            el.value = JSON.stringify(json);
+            $(e.currentTarget.form).append(el);
+            $(e.currentTarget.form).submit();
+        });
+    });
+</script>

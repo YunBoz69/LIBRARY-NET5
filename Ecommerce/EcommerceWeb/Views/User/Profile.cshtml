@@ -1,0 +1,167 @@
+﻿@model EcommerceWeb.Models.User
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+@{
+    var isAdmin = @HttpContextAccessor.HttpContext.Session.GetInt32("isAdmin");
+}
+
+<h2>Profile</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd>
+            ***********
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId })
+    |
+    @Html.ActionLink("Go to Dashboard", "Index", "Home")
+</p>
+@{
+    if (isAdmin == 0)
+    {
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Your addresses</h2>
+                @Html.ActionLink("Create new address", "Create", "Address")
+                <hr />
+                <h3>Your billing address</h3>
+                <hr />
+                @{int i = 0;}
+                @foreach (Address addr in Model.ListAddresses)
+                {
+                    @if (addr.IsBill)
+                    {
+                        <dl class="dl-horizontal" style="border-left : solid lightgrey 1px;">
+                            <dt>
+                                First name
+                            </dt>
+                            <dd>
+                                @addr.FirstName
+                            </dd>
+                            <dt>
+                                Last name
+                            </dt>
+                            <dd>
+                                @addr.LastName
+                            </dd>
+                            <dt>
+                                Address
+                            </dt>
+                            <dd>
+                                @addr.FirstAddress
+                            </dd>
+                            <dt>
+                                City
+                            </dt>
+                            <dd>
+                                @addr.City
+                            </dd>
+                            <dt>
+                                Postal Code
+                            </dt>
+                            <dd>
+                                @addr.PostalCode
+
+                            </dd>
+                            <dd>
+                                <a asp-action="Delete" asp-controller="Address" asp-route-id="@addr.AddressId">X</a>
+                            </dd>
+
+                        </dl>
+                        i++;
+                        if (i == 0)
+                        {
+                            <h4>No billing address</h4>
+                        }
+                    }
+                }
+            </div>
+
+            @{i = 0;}
+            <div class="col-lg-12 col-sm-12" col-xs-12"">
+                <h3>Your delivery addresses</h3>
+                <hr />
+
+                @foreach (Address addr in Model.ListAddresses)
+                {
+                    @if (addr.IsDelivery)
+                    {
+                        <div class="col-lg-6" style="border-left : solid lightgrey 1px;">
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    First name
+                                </dt>
+                                <dd>
+                                    @addr.FirstName
+                                </dd>
+                                <dt>
+                                    Last name
+                                </dt>
+                                <dd>
+                                    @addr.LastName
+                                </dd>
+                                <dt>
+                                    Address
+                                </dt>
+                                <dd>
+                                    @addr.FirstAddress
+                                </dd>
+                                <dt>
+                                    City
+                                </dt>
+                                <dd>
+                                    @addr.City
+                                </dd>
+                                <dt>
+                                    Postal Code
+                                </dt>
+                                <dd>
+                                    @addr.PostalCode
+
+                                </dd>
+                                <dd>
+                                    <a asp-action="Delete" asp-controller="Address" asp-route-id="@addr.AddressId">X</a>
+                                </dd>
+
+                            </dl>
+                        </div>
+                        i++;
+                        if (i == 0)
+                        {
+                            <h4>No delivery addresses</h4>
+                        }
+                    }
+                }
+            </div>
+
+        </div>
+    }
+}
+

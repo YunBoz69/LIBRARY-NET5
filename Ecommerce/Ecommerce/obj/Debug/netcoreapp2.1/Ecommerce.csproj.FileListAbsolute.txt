@@ -1,0 +1,16 @@
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\bin\Debug\netcoreapp2.1\Ecommerce.deps.json
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\bin\Debug\netcoreapp2.1\Ecommerce.runtimeconfig.json
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\bin\Debug\netcoreapp2.1\Ecommerce.runtimeconfig.dev.json
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\bin\Debug\netcoreapp2.1\Ecommerce.dll
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\bin\Debug\netcoreapp2.1\Ecommerce.pdb
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.csprojAssemblyReference.cache
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.csproj.CoreCompileInputs.cache
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.RazorAssemblyInfo.cache
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.RazorAssemblyInfo.cs
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.AssemblyInfoInputs.cache
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.AssemblyInfo.cs
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.RazorTargetAssemblyInfo.cache
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.dll
+C:\Users\ybozkurt\Downloads\group-688700-master\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.pdb
+C:\Users\ybozkurt\IDVNET\group-777867\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.dll
+C:\Users\ybozkurt\IDVNET\group-777867\Ecommerce\Ecommerce\obj\Debug\netcoreapp2.1\Ecommerce.pdb

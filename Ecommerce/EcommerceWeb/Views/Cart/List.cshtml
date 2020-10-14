@@ -1,0 +1,57 @@
+﻿@model IEnumerable<EcommerceWeb.Models.Cart>
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+
+@{
+    ViewData["Title"] = "List";
+}
+    <div class="row">
+        <h2>List of orders</h2>
+        <a asp-action="Index" asp-controller="Home">< Go back Home</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Order ID
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedOn)
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        JObject o = JsonConvert.DeserializeObject<JObject>(item.OrderInfo);
+                        Address billing = JsonConvert.DeserializeObject<Address>(o.GetValue("billing_addr").ToString());
+                        Address delivery = JsonConvert.DeserializeObject<Address>(o.GetValue("delivery_addr").ToString());
+                        List<CartProduct> products = JsonConvert.DeserializeObject<List<CartProduct>>(o.GetValue("products").ToString());
+                        double total = 0;
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CartId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedOn)
+                            </td>
+                            <td>
+                                @foreach (CartProduct cp in products)
+                                {
+                                    total += (double)cp.product.Price * cp.Quantity;
+                                }
+                                @total €
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { id = item.CartId })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>

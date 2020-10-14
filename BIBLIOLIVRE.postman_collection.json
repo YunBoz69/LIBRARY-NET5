@@ -1,0 +1,345 @@
+{
+	"info": {
+		"_postman_id": "ae2793ce-bef3-4933-b54b-47b8562fddab",
+		"name": "BIBLIOLIVRE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "GET ALL USERS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER PAR ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n\t\t\"FirstName\" : \"ERIC\",\r\n\t\t\"LastName\" : \"CANTONA\",\r\n\t\t\"IsAdmin\": 0,\r\n\t\t\"Password\": \"password\",\r\n\t\t\"Email\" : \"eric@gmail.com\"\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE USER",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n\t\t\"userId\": 8,\r\n\t\t\"FirstName\" : \"KARIM\",\r\n\t\t\"LastName\" : \"CANTONA\",\r\n\t\t\"IsAdmin\": 0,\r\n\t\t\"Password\": \"password\",\r\n\t\t\"Email\" : \"eric@gmail.com\"\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/8",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "VALUE",
+			"item": [
+				{
+					"name": "GET VALUES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/values",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"values"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PRODUCT",
+			"item": [
+				{
+					"name": "GET ALL PRODUCT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product ById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"La Vérité sur l'affaire Harry Quebert\",\r\n        \"price\": 20.0,\r\n        \"description\": \"À New York, au printemps 2008, lorsque l'Amérique bruisse des prémices de l'élection présidentielle, Marcus Goldman, jeune écrivain à succès, est dans la tourmente: il est incapable d'écrire le nouveau roman qu'il doit remettre à son éditeur d'ici quelques mois. Le délai est près d'expirer quand soudain tout bascule pour lui : son ami et ancien professeur d'université, Harry Quebert, l'un des écrivains les plus respectés du pays, est rattrapé par son passé et se retrouve accusé d avoir assassiné, en 1975, Nola Kellergan, une jeune fille de 15 ans, avec qui il aurait eu une liaison. Convaincu de l'innocence de Harry, Marcus abandonne tout pour se rendre dans le New Hampshire et mener son enquête. Il est rapidement dépassé par les événements : l'enquête s'enfonce et il fait l'objet de menaces. Pour innocenter Harry et sauver sa carrière d écrivain, il doit absolument répondre à trois questions : Qui a tué Nola Kellergan ? Que s'est-il passé dans le New Hampshire à l'été 1975 ? Et comment écrit-on un roman à succès ? Sous ses airs de thriller à l'américaine, La Vérité sur l'Affaire Harry Quebert est une réflexion sur l'Amérique, sur les travers de la société moderne, sur la littérature, sur la justice et sur les médias.\",\r\n        \"category\": \"Thriller\",\r\n        \"image\": \"HARRYQUEBERT.jpg\",\r\n        \"stock\": 5\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE PRODUCT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"La Vérité sur l'affaire Harry Quebert\",\r\n        \"price\": 20.0,\r\n        \"description\": \"À New York, au printemps 2008, lorsque l'Amérique bruisse des prémices de l'élection présidentielle, Marcus Goldman, jeune écrivain à succès, est dans la tourmente: il est incapable d'écrire le nouveau roman qu'il doit remettre à son éditeur d'ici quelques mois. Le délai est près d'expirer quand soudain tout bascule pour lui : son ami et ancien professeur d'université, Harry Quebert, l'un des écrivains les plus respectés du pays, est rattrapé par son passé et se retrouve accusé d avoir assassiné, en 1975, Nola Kellergan, une jeune fille de 15 ans, avec qui il aurait eu une liaison. Convaincu de l'innocence de Harry, Marcus abandonne tout pour se rendre dans le New Hampshire et mener son enquête. Il est rapidement dépassé par les événements : l'enquête s'enfonce et il fait l'objet de menaces. Pour innocenter Harry et sauver sa carrière d écrivain, il doit absolument répondre à trois questions : Qui a tué Nola Kellergan ? Que s'est-il passé dans le New Hampshire à l'été 1975 ? Et comment écrit-on un roman à succès ? Sous ses airs de thriller à l'américaine, La Vérité sur l'Affaire Harry Quebert est une réflexion sur l'Amérique, sur les travers de la société moderne, sur la littérature, sur la justice et sur les médias.\",\r\n        \"category\": \"Thriller\",\r\n        \"image\": \"HARRYQUEBERT.jpg\",\r\n        \"stock\": 5\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/products/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE PRODUCT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CART",
+			"item": [
+				{
+					"name": "GET CART BY USER ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/carts/6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CART BY CART ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/carts/cart/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "SESSION",
+			"item": [
+				{
+					"name": "CONNECT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"RONALDO\",\n\t\"password\": \"RONALDO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/session",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"session"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

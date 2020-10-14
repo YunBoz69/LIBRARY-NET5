@@ -1,0 +1,80 @@
+﻿@model EcommerceWeb.Models.Product
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    string isConnected = @HttpContextAccessor.HttpContext.Session.GetString("connectedUser");
+    var connectedUserId = @HttpContextAccessor.HttpContext.Session.GetInt32("connectedUserId");
+    var isAdmin = @HttpContextAccessor.HttpContext.Session.GetInt32("isAdmin");
+}
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <div class="row">
+        <div class="col-lg-7 col-sm-7 col-xs-7">
+            @{var img = Model.Image == null ? "noimg.png" : Model.Image;}
+            <img src="~/images/@img" class="img-responsive" />
+
+        </div>
+        <div class="col-lg-5 col-sm-5 col-xs-5">
+            <!--<p>
+        <b>@Html.DisplayNameFor(model => model.Name) :</b>
+        <span>
+            @Html.DisplayFor(model => model.Name)
+        </span>
+    </p>-->
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Price) €
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Category)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Stock)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Stock)
+                </dd>
+            </dl>
+
+        </div>
+        <div class="col-lg-2 col-lg-offset-10 col-sm-2 col-sm-offset-10 col-xs-12">
+            @{
+                if (isAdmin == 1)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })
+                }
+                else
+                {
+                    <a asp-controller="Cart" asp-action="AddProduct" asp-route-id="@Model.ProductId">Add to cart </a>
+                }
+            }
+            | <a asp-action="Products">Back to List</a>
+        </div>
+    </div>

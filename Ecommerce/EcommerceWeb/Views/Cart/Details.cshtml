@@ -1,0 +1,187 @@
+﻿@model EcommerceWeb.Models.Cart
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+<hr />
+@{
+    JObject o = JsonConvert.DeserializeObject<JObject>(Model.OrderInfo);
+    Address billing = JsonConvert.DeserializeObject<Address>(o.GetValue("billing_addr").ToString());
+    Address delivery = JsonConvert.DeserializeObject<Address>(o.GetValue("delivery_addr").ToString());
+    List<CartProduct> products = JsonConvert.DeserializeObject<List<CartProduct>>(o.GetValue("products").ToString());
+    var cartId = ViewData["cartId"];
+    double total = 0;
+}
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h2>Payment detail</h2>
+        <div class="col-lg-6 col-sm-12 col-lg-offset-6" style="color:black;" >
+            <p style="text-align:right;"><a asp-area="" asp-controller="PDFCreater" asp-action="CreatePDF" asp-route-id="@cartId.ToString()">Generate invoice <span class="glyphicon glyphicon-file"></span></a></p>
+        </div>
+        <hr />
+        <dl>
+            <dt>
+                Name on card
+            </dt>
+            <dd>
+                @o.GetValue("card_name")
+            </dd>
+            <dt>
+                Card number
+            </dt>
+            <dd>
+                @{
+                    string s = (string)o.GetValue("card_number");
+                }
+                @s.Substring(0, 1)XXXXXXXXXXXXX
+            </dd>
+            <dt>
+                Expiration
+            </dt>
+            <dd>
+                @o.GetValue("expiration_month") /
+                @o.GetValue("expiration_year")
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-sm-6 col-xs-12">
+        <h2>Billing Address</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                First Name
+            </dt>
+            <dd>
+                @billing.FirstName
+            </dd>
+            <dt>
+                Last Name
+            </dt>
+            <dd>
+                @billing.LastName
+            </dd>
+            <dt>
+                Address
+            </dt>
+            <dd>
+                @billing.FirstAddress
+            </dd>
+            <dt>
+                City
+            </dt>
+            <dd>
+                @billing.City
+            </dd>
+            <dt>
+                Postal Code
+            </dt>
+            <dd>
+                @billing.PostalCode
+            </dd>
+        </dl>
+    </div>
+    <div class="col-lg-6 col-sm-6 col-xs-12">
+        <h2>Delivery Address</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                First Name
+            </dt>
+            <dd>
+                @delivery.FirstName
+            </dd>
+            <dt>
+                Last Name
+            </dt>
+            <dd>
+                @delivery.LastName
+            </dd>
+            <dt>
+                Address
+            </dt>
+            <dd>
+                @delivery.FirstAddress
+            </dd>
+            <dt>
+                City
+            </dt>
+            <dd>
+                @delivery.City
+            </dd>
+            <dt>
+                Postal Code
+            </dt>
+            <dd>
+                @delivery.PostalCode
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h2>Products</h2>
+        <hr />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (CartProduct item in products)
+                {
+                    total += (double)item.product.Price * item.Quantity;
+                    <tr>
+                        <td>
+                            @{var img = item.product.Image == null ? "noimg.png" : item.product.Image;}
+                            <a asp-area="" asp-controller="Product" asp-action="Details" asp-route-id="@item.product.ProductId"><img src="~/images/@img" width="250" height="250" class="img-responsive" /></a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Name)
+                        </td>
+                        <td>
+                            @{var p = item.product.Price * item.Quantity;}
+                            @p €
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.product.Category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="col-lg-2 col-lg-offset-10">
+            <b>TOTAL : </b> @total €
+        </div>
+    </div>
+</div>

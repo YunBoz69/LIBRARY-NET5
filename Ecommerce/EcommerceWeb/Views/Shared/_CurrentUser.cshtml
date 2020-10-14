@@ -1,0 +1,9 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Products";
+    string isConnected = @HttpContextAccessor.HttpContext.Session.GetString("connectedUser");
+    var connectedUserId = @HttpContextAccessor.HttpContext.Session.GetInt32("connectedUserId");
+    var isAdmin = @HttpContextAccessor.HttpContext.Session.GetInt32("isAdmin");
+}
